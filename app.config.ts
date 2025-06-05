@@ -15,6 +15,7 @@ const config = {
 		},
 		ios: {
 			supportsTablet: true,
+			bundleIdentifier: "com.modak.technicalchallenge",
 		},
 		android: {
 			adaptiveIcon: {
@@ -22,11 +23,20 @@ const config = {
 				backgroundColor: "#ffffff",
 			},
 			edgeToEdgeEnabled: true,
+			package: "com.modak.technicalchallenge",
 		},
 		web: {
 			favicon: "./assets/favicon.png",
 		},
-		plugins: ["expo-router"],
+		plugins: [
+			"expo-router",
+			[
+				"expo-dev-client",
+				{
+					launchMode: "most-recent",
+				},
+			],
+		],
 	},
 };
 
