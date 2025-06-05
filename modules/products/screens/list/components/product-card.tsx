@@ -8,8 +8,6 @@ type ProductCardProps = {
 };
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-	const thumbnail = product.images[0];
-
 	const handlePress = () => {
 		router.push(`/products/${product.id}`);
 	};
@@ -17,7 +15,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 	return (
 		<Card elevate onPress={handlePress} size="$4" bordered my="$2">
 			<Card.Header>
-				<Image source={{ uri: thumbnail }} flex={1} width="100%" height={200} />
+				<Image
+					source={{ uri: product.thumbnail }}
+					flex={1}
+					width="100%"
+					height={200}
+				/>
 			</Card.Header>
 			<Card.Footer flexDirection="column" padded>
 				<Paragraph color="$accent2" numberOfLines={2}>

@@ -9,18 +9,25 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@tamagui/babel-plugin": "^1.126.14",
     "@tamagui/config": "^1.126.14",
     "@tamagui/core": "^1.126.14",
+    "@tamagui/lucide-icons": "^1.126.14",
     "axios": "^1.9.0",
     "expo": "~53.0.9",
-    "expo-linking": "^7.1.5",
-    "expo-router": "^5.0.7",
+    "expo-constants": "~17.1.6",
+    "expo-linking": "~7.1.5",
+    "expo-router": "~5.0.7",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-native": "0.79.2",
-    "react-native-safe-area-context": "^5.4.1",
-    "react-native-screens": "^4.11.1",
-    "tamagui": "^1.126.14"
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-screens": "~4.11.1",
+    "react-native-svg": "^15.12.0",
+    "react-native-web": "^0.20.0",
+    "tamagui": "^1.126.14",
+    "use-context-selector": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

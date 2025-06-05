@@ -1,22 +1,17 @@
 import { Slot } from "expo-router";
-import { createTamagui, TamaguiProvider } from "tamagui";
-import { defaultConfig } from "@tamagui/config/v4";
-import { SafeAreaView } from "react-native-safe-area-context";
 
-const config = createTamagui(defaultConfig);
+import { useColorScheme } from "react-native";
+import { TamaguiProvider } from "tamagui";
 
-type Config = typeof config;
-
-declare module "tamagui" {
-	interface TamaguiCustomConfig extends Config {}
-}
+import { tamaguiConfig } from "../tamagui.config";
 
 export default function RootLayout() {
+	const colorScheme = useColorScheme();
+
 	return (
-		<SafeAreaView edges={["top"]}>
-			<TamaguiProvider config={config}>
-				<Slot />
-			</TamaguiProvider>
-		</SafeAreaView>
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+		<TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme as any}>
+			<Slot />
+		</TamaguiProvider>
 	);
 }

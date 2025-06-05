@@ -1,5 +1,5 @@
-import { ListView } from "./list.view";
-import { useListViewModel } from "./list.view-model";
+import { ListView } from "./view";
+import { useListViewModel } from "./view-model";
 
 const ListScreen = () => {
 	const props = useListViewModel();
