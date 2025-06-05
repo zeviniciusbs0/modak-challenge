@@ -12,12 +12,18 @@ import {
 	View,
 	type ViewProps,
 	type ScrollViewProps,
+	YStack,
+	XStack,
 } from "tamagui";
 import { ChevronLeft } from "@tamagui/lucide-icons";
 
-type HeaderProps = PropsWithChildren<ViewProps>;
+type HeaderProps = PropsWithChildren<
+	ViewProps & {
+		RightSlot?: React.ReactNode;
+	}
+>;
 
-export function Header({ children, ...styleProps }: HeaderProps) {
+export function Header({ children, RightSlot, ...styleProps }: HeaderProps) {
 	const handleGoBack = usePageContext((state) => state.handleGoBack);
 
 	return (
@@ -28,20 +34,23 @@ export function Header({ children, ...styleProps }: HeaderProps) {
 			bg="$color02"
 			{...styleProps}
 		>
-			<View flexDirection="row" alignItems="center" gap="$4">
-				{handleGoBack ? (
-					<Button
-						chromeless
-						p="$0"
-						size="$2"
-						icon={<ChevronLeft size="$2" />}
-						onPress={handleGoBack}
-					/>
-				) : null}
-				<H1 color="$accent1" size="$6" numberOfLines={1}>
-					{children}
-				</H1>
-			</View>
+			<XStack alignItems="center" gap="$4">
+				<XStack flex={1} alignItems="center">
+					{handleGoBack ? (
+						<Button
+							chromeless
+							p="$0"
+							size="$2"
+							icon={<ChevronLeft size="$2" />}
+							onPress={handleGoBack}
+						/>
+					) : null}
+					<H1 color="$accent1" size="$6" numberOfLines={1}>
+						{children}
+					</H1>
+				</XStack>
+				{RightSlot ? RightSlot : null}
+			</XStack>
 		</View>
 	);
 }
@@ -56,13 +65,17 @@ export function Body({ children, scroll, ...styleProps }: BodyProps) {
 	const isLoading = usePageContext((state) => state.isLoading);
 	const Container = useMemo(() => (scroll ? ScrollView : View), [scroll]);
 
+	if (isLoading) {
+		return (
+			<YStack grow={1} alignItems="center" justifyContent="center">
+				<Spinner size="large" />
+			</YStack>
+		);
+	}
+
 	return (
-		<Container flex={1} px="$5" {...styleProps}>
-			{isLoading ? (
-				<Spinner flex={1} alignItems="center" justifyContent="center" />
-			) : (
-				children
-			)}
+		<Container grow={1} px="$5" {...styleProps}>
+			{children}
 		</Container>
 	);
 }
@@ -108,13 +121,9 @@ function Page({ children, onGoBack, isLoading }: PageProps) {
 
 	return (
 		<PageContext.Provider value={{ handleGoBack, isLoading }}>
-			<KeyboardAvoidingView
-				behavior={Platform.OS === "ios" ? "padding" : undefined}
-			>
-				<View flexGrow={1} height="100%" bg="$background0">
-					{children}
-				</View>
-			</KeyboardAvoidingView>
+			<View flex={1} bg="$background0">
+				{children}
+			</View>
 		</PageContext.Provider>
 	);
 }

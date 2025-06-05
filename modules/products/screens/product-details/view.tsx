@@ -2,6 +2,7 @@ import { CurrencyHandler } from "@/common/utils/currency";
 import type { useProductDetailsViewModel } from "./view-model";
 import { H1, H3, Image, Paragraph, XStack, YStack } from "tamagui";
 import { Page } from "@/common/components/page";
+import { StarFull } from "@tamagui/lucide-icons";
 
 export const ProductDetailsView = (
 	props: ReturnType<typeof useProductDetailsViewModel>,
@@ -20,6 +21,12 @@ export const ProductDetailsView = (
 							height={200}
 						/>
 						<YStack gap="$2" mt="$4" px="$5">
+							<XStack alignItems="center" gap="$1" mt="$1">
+								<StarFull size="$1" color="$yellow10" />
+								<Paragraph>
+									{product.rating} ({product.reviews.length})
+								</Paragraph>
+							</XStack>
 							<XStack justify="space-between" alignItems="center">
 								<H3 color="$red10">{CurrencyHandler.format(product.price)}</H3>
 								<Paragraph color="$accent2">By {product.brand}</Paragraph>

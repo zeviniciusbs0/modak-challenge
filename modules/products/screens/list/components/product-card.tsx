@@ -1,7 +1,8 @@
 import { CurrencyHandler } from "@/common/utils/currency";
 import type { Product } from "@/modules/products/types/product";
+import { StarFull } from "@tamagui/lucide-icons";
 import { router } from "expo-router";
-import { Card, H3, Image, Paragraph } from "tamagui";
+import { Card, H3, Image, Paragraph, XStack } from "tamagui";
 
 type ProductCardProps = {
 	product: Product;
@@ -26,6 +27,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 				<Paragraph color="$accent2" numberOfLines={2}>
 					{product.title}
 				</Paragraph>
+				<XStack alignItems="center" gap="$1" mt="$1">
+					<StarFull size="$1" color="$yellow10" />
+					<Paragraph>
+						{product.rating} ({product.reviews.length})
+					</Paragraph>
+				</XStack>
 				<H3 color="$red10">{CurrencyHandler.format(product.price)}</H3>
 			</Card.Footer>
 		</Card>
