@@ -2,7 +2,7 @@ const config = {
 	expo: {
 		name: "modak-technical-challenge",
 		slug: "modak-technical-challenge",
-		scheme: ["modakchallenge"],
+		scheme: "modakchallenge",
 		version: "1.0.0",
 		orientation: "portrait",
 		icon: "./assets/icon.png",

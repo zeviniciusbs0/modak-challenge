@@ -4,10 +4,13 @@ import type { Product } from "../../types/product";
 import { router, useLocalSearchParams } from "expo-router";
 
 export const useListViewModel = () => {
-	const { category, sortBy } = useLocalSearchParams<{
+	const params = useLocalSearchParams<{
 		category?: string;
 		sortBy?: "price" | "rating";
 	}>();
+
+	const [category, setCategory] = useState(params.category);
+	const [sortBy, setSortBy] = useState(params.sortBy);
 
 	const [products, setProducts] = useState<Product[]>([]);
 
@@ -33,5 +36,20 @@ export const useListViewModel = () => {
 		getProducts();
 	}, [category, sortBy]);
 
-	return { products, openFilters, category, sortBy };
+	const handleRemoveCategory = () => {
+		setCategory(undefined);
+	};
+
+	const handleRemoveSortBy = () => {
+		setSortBy(undefined);
+	};
+
+	return {
+		products,
+		openFilters,
+		category,
+		sortBy,
+		handleRemoveCategory,
+		handleRemoveSortBy,
+	};
 };

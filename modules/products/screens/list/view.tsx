@@ -7,7 +7,14 @@ import { Filter } from "@tamagui/lucide-icons";
 import { Chip } from "@/common/components/chip";
 
 export const ListView = (props: ReturnType<typeof useListViewModel>) => {
-	const { products, openFilters, category, sortBy } = props;
+	const {
+		products,
+		openFilters,
+		category,
+		sortBy,
+		handleRemoveCategory,
+		handleRemoveSortBy,
+	} = props;
 
 	return (
 		<Page>
@@ -15,8 +22,16 @@ export const ListView = (props: ReturnType<typeof useListViewModel>) => {
 			<Page.Body>
 				<XStack gap="$2" py="$3">
 					<Button onPress={openFilters} size="$3" icon={<Filter size="$1" />} />
-					{category && <Chip active>{category}</Chip>}
-					{sortBy && <Chip active>{sortBy}</Chip>}
+					{category && (
+						<Chip onRemove={handleRemoveCategory} active>
+							{category}
+						</Chip>
+					)}
+					{sortBy && (
+						<Chip onRemove={handleRemoveSortBy} active>
+							{sortBy}
+						</Chip>
+					)}
 				</XStack>
 				<FlatList
 					data={products}
