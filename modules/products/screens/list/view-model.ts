@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ProductModel } from "../../models/product.model";
-import type { Product } from "../../types/product";
 import { router, useLocalSearchParams } from "expo-router";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+
+const LIMIT = 20;
 
 export const useListViewModel = () => {
 	const params = useLocalSearchParams<{
@@ -10,24 +11,48 @@ export const useListViewModel = () => {
 		sortBy?: "price" | "rating";
 	}>();
 
-	const [category, setCategory] = useState(params.category);
-	const [sortBy, setSortBy] = useState(params.sortBy);
+	const [category, setCategory] = useState(params.category ?? undefined);
+	const [sortBy, setSortBy] = useState(params.sortBy ?? undefined);
 
-	const { data: products, isLoading } = useQuery({
+	const {
+		data,
+		isLoading,
+		isFetchingNextPage,
+		hasNextPage,
+		fetchNextPage,
+		error,
+	} = useInfiniteQuery({
 		queryKey: ["products-list", category, sortBy],
-		queryFn: async () => {
+		queryFn: async ({ pageParam = 0 }) => {
 			const productModel = new ProductModel();
 			const productsList = category
 				? await productModel.getProductByCategory(category, {
 						sortBy,
+						limit: LIMIT,
+						skip: pageParam,
 					})
 				: await productModel.getProducts({
 						sortBy,
+						limit: LIMIT,
+						skip: pageParam,
 					});
 
-			return productsList.products;
+			return productsList;
 		},
+		getNextPageParam: (lastPage, pages) => {
+			const totalFetched = pages.reduce(
+				(acc, page) => acc + page.products.length,
+				0,
+			);
+			return totalFetched < lastPage.total ? totalFetched : undefined;
+		},
+		initialPageParam: 0,
 	});
+
+	const products = useMemo(
+		() => data?.pages.flatMap((page) => page.products) ?? [],
+		[data],
+	);
 
 	const openFilters = () => {
 		router.navigate("/products/filter");
@@ -35,19 +60,31 @@ export const useListViewModel = () => {
 
 	const handleRemoveCategory = () => {
 		setCategory(undefined);
+		router.setParams({ category: undefined });
 	};
 
 	const handleRemoveSortBy = () => {
 		setSortBy(undefined);
+		router.setParams({ sortBy: undefined });
+	};
+
+	const loadMore = () => {
+		if (hasNextPage && !isFetchingNextPage) {
+			fetchNextPage();
+		}
 	};
 
 	return {
 		products,
 		isLoading,
+		isFetchingNextPage,
+		hasNextPage,
+		loadMore,
 		openFilters,
 		category,
 		sortBy,
 		handleRemoveCategory,
 		handleRemoveSortBy,
+		error,
 	};
 };

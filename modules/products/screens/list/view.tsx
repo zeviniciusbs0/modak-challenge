@@ -15,12 +15,14 @@ export const ListView = (props: ReturnType<typeof useListViewModel>) => {
 		sortBy,
 		handleRemoveCategory,
 		handleRemoveSortBy,
+		isFetchingNextPage,
+		loadMore,
 	} = props;
 
 	return (
 		<Page hideBackButton>
 			<Page.Header>Products</Page.Header>
-			<Page.Body>
+			<Page.Body pb="$4">
 				<XStack gap="$2" py="$3" px="$4">
 					<Button onPress={openFilters} size="$3" icon={<Filter size="$1" />} />
 					{category && (
@@ -44,6 +46,11 @@ export const ListView = (props: ReturnType<typeof useListViewModel>) => {
 						renderItem={({ item }) => <ProductCard product={item} />}
 						keyExtractor={(item) => item.id.toString()}
 						showsVerticalScrollIndicator={false}
+						onEndReached={loadMore}
+						onEndReachedThreshold={0.5}
+						ListFooterComponent={() =>
+							isFetchingNextPage ? <Spinner my="$2" size="small" /> : null
+						}
 					/>
 				)}
 			</Page.Body>
