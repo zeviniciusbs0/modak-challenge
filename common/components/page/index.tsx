@@ -22,7 +22,7 @@ export function Header({ children, RightSlot, ...styleProps }: HeaderProps) {
 			{...styleProps}
 		>
 			<XStack items="center" gap="$4">
-				<XStack flex={1} items="center">
+				<XStack flex={1} items="center" gap="$2">
 					{!hideBackButton && handleGoBack ? (
 						<Button
 							chromeless
@@ -48,14 +48,22 @@ export function Body({ children, scroll, ...styleProps }: BodyProps) {
 
 	if (isLoading) {
 		return (
-			<YStack grow={1} items="center" justify="center">
+			<YStack flex={1} items="center" justify="center" {...styleProps}>
 				<Spinner size="large" />
 			</YStack>
 		);
 	}
 
 	return (
-		<Container grow={1} px="$5" {...styleProps}>
+		<Container
+			flex={1}
+			showsHorizontalScrollIndicator={false}
+			showsVerticalScrollIndicator={false}
+			contentContainerStyle={{
+				flex: 1,
+			}}
+			{...styleProps}
+		>
 			{children}
 		</Container>
 	);

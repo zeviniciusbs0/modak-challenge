@@ -14,7 +14,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 	};
 
 	return (
-		<Card elevate onPress={handlePress} size="$4" bordered my="$2">
+		<Card elevate onPress={handlePress} size="$4" bordered my="$2" mx="$4">
 			<Card.Header>
 				<Image
 					source={{ uri: product.thumbnail }}

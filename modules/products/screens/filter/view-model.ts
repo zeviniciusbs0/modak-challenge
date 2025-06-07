@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ProductModel } from "../../models/product.model";
 import type { Category } from "../../types/category";
 import { router } from "expo-router";
+import { useQuery } from "@tanstack/react-query";
 
 const ORDER_BY_OPTIONS = [
 	{
@@ -15,24 +16,20 @@ const ORDER_BY_OPTIONS = [
 ] as const;
 
 export const useFilterViewModel = () => {
-	const [categories, setCategories] = useState<Category[]>([]);
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
 		null,
 	);
 	const [sortBy, setSortBy] = useState<"price" | "rating" | null>(null);
 	const [isValid, setIsValid] = useState(false);
 
-	const getCategories = async () => {
-		const productModel = new ProductModel();
-		const categories = await productModel.getProductCategories();
-
-		setCategories(categories);
-	};
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		getCategories();
-	}, []);
+	const { data: categories, isLoading } = useQuery({
+		queryKey: ["categories"],
+		queryFn: async () => {
+			const productModel = new ProductModel();
+			const categories = await productModel.getProductCategories();
+			return categories;
+		},
+	});
 
 	const handleSelectCategory = (category: Category) => {
 		setSelectedCategory((prev) =>
@@ -67,5 +64,6 @@ export const useFilterViewModel = () => {
 		handleSelectOrderBy,
 		isValid,
 		handleSubmit,
+		isLoading,
 	};
 };

@@ -10,6 +10,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
+export const unstable_settings = {
+	initialRouteName: "/products/list",
+};
+
 export default function RootLayout() {
 	const colorScheme = useColorScheme();
 	const { expoPushToken } = useConfigureNotificationsHandler();

@@ -1,19 +1,29 @@
 import { CurrencyHandler } from "@/common/utils/currency";
 import type { useProductDetailsViewModel } from "./view-model";
-import { H1, H3, Image, Paragraph, XStack, YStack } from "tamagui";
+import { H1, H2, H3, Image, Paragraph, XStack, YStack } from "tamagui";
 import { Page } from "@/common/components/page";
 import { StarFull } from "@tamagui/lucide-icons";
+import { router, type ErrorBoundaryProps } from "expo-router";
+import { Button } from "@/common/components/button";
 
 export const ProductDetailsView = (
 	props: ReturnType<typeof useProductDetailsViewModel>,
 ) => {
-	const { product, isLoading } = props;
+	const { product, isLoading, error } = props;
 
 	return (
 		<Page isLoading={isLoading}>
 			<Page.Header>Product Details</Page.Header>
-			<Page.Body scroll bg="$background04" px="$0">
-				{product ? (
+			<Page.Body scroll>
+				{error && (
+					<YStack flex={1} py="$8" px="$4" gap="$4" justify="center">
+						<H1 size="$5">{error.message}</H1>
+						<Button onPress={() => router.replace("/products/list")}>
+							Go to Home
+						</Button>
+					</YStack>
+				)}
+				{product && (
 					<>
 						<Image
 							source={{ uri: product.images[0] }}
@@ -36,8 +46,6 @@ export const ProductDetailsView = (
 							<Paragraph>{product.description}</Paragraph>
 						</YStack>
 					</>
-				) : (
-					<Paragraph>Product not found</Paragraph>
 				)}
 			</Page.Body>
 		</Page>

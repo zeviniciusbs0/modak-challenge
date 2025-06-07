@@ -13,17 +13,21 @@ export const useProductDetailsViewModel = () => {
 	} = useQuery({
 		queryKey: ["product-details", id],
 		queryFn: async () => {
-			const productModel = new ProductModel();
-			const product = await productModel.getProductById(id as string);
-			return product;
+			try {
+				const productModel = new ProductModel();
+				const product = await productModel.getProductById(id as string);
+				return product;
+				// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+			} catch (e: any) {
+				if (e.response?.status === 404) {
+					throw new Error("Product not found");
+				}
+
+				throw e;
+			}
 		},
+		retry: false,
 	});
 
-	useEffect(() => {
-		if (error) {
-			router.replace("/products/list");
-		}
-	}, [error]);
-
-	return { product, isLoading };
+	return { product, isLoading, error };
 };

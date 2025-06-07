@@ -21,7 +21,7 @@ export const ListView = (props: ReturnType<typeof useListViewModel>) => {
 		<Page hideBackButton>
 			<Page.Header>Products</Page.Header>
 			<Page.Body>
-				<XStack gap="$2" py="$3">
+				<XStack gap="$2" py="$3" px="$4">
 					<Button onPress={openFilters} size="$3" icon={<Filter size="$1" />} />
 					{category && (
 						<Chip onRemove={handleRemoveCategory} active>
@@ -43,6 +43,7 @@ export const ListView = (props: ReturnType<typeof useListViewModel>) => {
 						data={products}
 						renderItem={({ item }) => <ProductCard product={item} />}
 						keyExtractor={(item) => item.id.toString()}
+						showsVerticalScrollIndicator={false}
 					/>
 				)}
 			</Page.Body>
