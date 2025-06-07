@@ -18,5 +18,12 @@ export type FooterProps = PropsWithChildren<ViewProps>;
 
 export type PageProps = PropsWithChildren<{
 	onGoBack?: () => void;
+	hideBackButton?: boolean;
 	isLoading?: boolean;
 }>;
+
+export type ContextProps = {
+	handleGoBack?: () => void;
+	isLoading: boolean;
+	hideBackButton: boolean;
+};

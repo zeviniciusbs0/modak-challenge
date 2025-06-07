@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 import type { useListViewModel } from "./view-model";
 import { ProductCard } from "./components/product-card";
-import { Button, Spinner, View, XStack, YStack } from "tamagui";
+import { Button, Spinner, XStack, YStack } from "tamagui";
 import { Page } from "@/common/components/page";
 import { Filter } from "@tamagui/lucide-icons";
 import { Chip } from "@/common/components/chip";
@@ -18,7 +18,7 @@ export const ListView = (props: ReturnType<typeof useListViewModel>) => {
 	} = props;
 
 	return (
-		<Page>
+		<Page hideBackButton>
 			<Page.Header>Products</Page.Header>
 			<Page.Body>
 				<XStack gap="$2" py="$3">

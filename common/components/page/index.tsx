@@ -8,7 +8,10 @@ import { ChevronLeft } from "@tamagui/lucide-icons";
 import type { HeaderProps, BodyProps, FooterProps, PageProps } from "./types";
 
 export function Header({ children, RightSlot, ...styleProps }: HeaderProps) {
-	const handleGoBack = usePageContext((state) => state.handleGoBack);
+	const { handleGoBack, hideBackButton } = usePageContext((state) => ({
+		handleGoBack: state.handleGoBack,
+		hideBackButton: state.hideBackButton,
+	}));
 
 	return (
 		<View
@@ -20,7 +23,7 @@ export function Header({ children, RightSlot, ...styleProps }: HeaderProps) {
 		>
 			<XStack items="center" gap="$4">
 				<XStack flex={1} items="center">
-					{handleGoBack ? (
+					{!hideBackButton && handleGoBack ? (
 						<Button
 							chromeless
 							p="$0"
@@ -66,7 +69,12 @@ export function Footer({ children, ...styleProps }: FooterProps) {
 	);
 }
 
-function Page({ children, onGoBack, isLoading }: PageProps) {
+function Page({
+	children,
+	onGoBack,
+	isLoading = false,
+	hideBackButton = false,
+}: PageProps) {
 	const canGoBack = router.canGoBack();
 
 	const handleGoBack = useMemo(() => {
@@ -93,7 +101,7 @@ function Page({ children, onGoBack, isLoading }: PageProps) {
 	}, [handleGoBack]);
 
 	return (
-		<PageContext.Provider value={{ handleGoBack, isLoading }}>
+		<PageContext.Provider value={{ handleGoBack, isLoading, hideBackButton }}>
 			<View flex={1} bg="$background0">
 				{children}
 			</View>
