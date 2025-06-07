@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { ProductModel } from "../../models/product.model";
-import { router, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
+import { useLocalSearchParams } from "expo-router";
+import { ProductModel } from "../../models/product.model";
 
 export const useProductDetailsViewModel = () => {
 	const { id } = useLocalSearchParams();

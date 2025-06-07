@@ -1,11 +1,11 @@
+import { ChevronLeft } from "@tamagui/lucide-icons";
 import Constants from "expo-constants";
 import { router } from "expo-router";
 import { useEffect, useMemo } from "react";
 import { BackHandler } from "react-native";
+import { Button, H1, ScrollView, Spinner, View, XStack, YStack } from "tamagui";
 import { PageContext, usePageContext } from "./context";
-import { Button, H1, ScrollView, Spinner, View, YStack, XStack } from "tamagui";
-import { ChevronLeft } from "@tamagui/lucide-icons";
-import type { HeaderProps, BodyProps, FooterProps, PageProps } from "./types";
+import type { BodyProps, FooterProps, HeaderProps, PageProps } from "./types";
 
 export function Header({ children, RightSlot, ...styleProps }: HeaderProps) {
 	const { handleGoBack, hideBackButton } = usePageContext((state) => ({

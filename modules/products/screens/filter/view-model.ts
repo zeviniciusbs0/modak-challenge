@@ -1,8 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { ProductModel } from "../../models/product.model";
 import type { Category } from "../../types/category";
-import { router } from "expo-router";
-import { useQuery } from "@tanstack/react-query";
 
 const ORDER_BY_OPTIONS = [
 	{

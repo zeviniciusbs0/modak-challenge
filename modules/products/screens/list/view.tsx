@@ -1,10 +1,10 @@
-import { FlatList } from "react-native";
-import type { useListViewModel } from "./view-model";
-import { ProductCard } from "./components/product-card";
-import { Button, Spinner, XStack, YStack } from "tamagui";
+import { Chip } from "@/common/components/chip";
 import { Page } from "@/common/components/page";
 import { Filter } from "@tamagui/lucide-icons";
-import { Chip } from "@/common/components/chip";
+import { FlatList } from "react-native";
+import { Button, Spinner, XStack, YStack } from "tamagui";
+import { ProductCard } from "./components/product-card";
+import type { useListViewModel } from "./view-model";
 
 export const ListView = (props: ReturnType<typeof useListViewModel>) => {
 	const {

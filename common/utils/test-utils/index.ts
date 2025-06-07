@@ -4,17 +4,17 @@ export * from "@testing-library/react-native";
 // Re-export common Jest functions
 export { jest } from "@jest/globals";
 
-// Custom render function with providers
-import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
-	render,
 	renderHook as originalRenderHook,
+	render,
 } from "@testing-library/react-native";
 import type {
-	RenderOptions,
 	RenderHookOptions,
+	RenderOptions,
 } from "@testing-library/react-native";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// Custom render function with providers
+import React from "react";
 import { TamaguiProvider } from "tamagui";
 import { tamaguiConfig } from "../../../tamagui.config";
 

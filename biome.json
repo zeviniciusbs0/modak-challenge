@@ -7,7 +7,15 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": []
+		"ignore": [
+			"android",
+			"ios",
+			"node_modules",
+			"dist",
+			"build",
+			"coverage",
+			".tamagui"
+		]
 	},
 	"formatter": {
 		"enabled": true,

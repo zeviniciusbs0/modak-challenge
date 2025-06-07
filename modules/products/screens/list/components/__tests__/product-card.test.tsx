@@ -1,4 +1,4 @@
-import { render, createMockProduct } from "@/common/utils/test-utils";
+import { createMockProduct, render } from "@/common/utils/test-utils";
 import { ProductCard } from "../product-card";
 
 describe("ProductCard", () => {

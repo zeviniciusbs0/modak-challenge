@@ -1,4 +1,3 @@
-import { render, jest } from "@/common/utils/test-utils";
 import { CurrencyHandler } from "../currency";
 
 describe("CurrencyHandler", () => {

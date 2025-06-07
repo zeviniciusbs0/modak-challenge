@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
-import type { ViewProps, ScrollViewProps } from "tamagui";
 import type React from "react";
+import type { ScrollViewProps, ViewProps } from "tamagui";
 
 export type HeaderProps = PropsWithChildren<
 	ViewProps & {

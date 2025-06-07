@@ -1,4 +1,4 @@
-import { render, fireEvent, jest } from "@/common/utils/test-utils";
+import { fireEvent, jest, render } from "@/common/utils/test-utils";
 import { Chip } from "../index";
 
 describe("Chip", () => {

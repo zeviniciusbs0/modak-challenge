@@ -1,10 +1,10 @@
-import { CurrencyHandler } from "@/common/utils/currency";
-import type { useProductDetailsViewModel } from "./view-model";
-import { H1, H2, H3, Image, Paragraph, XStack, YStack } from "tamagui";
-import { Page } from "@/common/components/page";
-import { StarFull } from "@tamagui/lucide-icons";
-import { router, type ErrorBoundaryProps } from "expo-router";
 import { Button } from "@/common/components/button";
+import { Page } from "@/common/components/page";
+import { CurrencyHandler } from "@/common/utils/currency";
+import { StarFull } from "@tamagui/lucide-icons";
+import { router } from "expo-router";
+import { H1, H3, Image, Paragraph, XStack, YStack } from "tamagui";
+import type { useProductDetailsViewModel } from "./view-model";
 
 export const ProductDetailsView = (
 	props: ReturnType<typeof useProductDetailsViewModel>,

@@ -1,4 +1,4 @@
-import { Button as TamaguiButton, type ButtonProps } from "tamagui";
+import { type ButtonProps, Button as TamaguiButton } from "tamagui";
 
 export const Button = (props: ButtonProps) => {
 	const { disabled, ...rest } = props;

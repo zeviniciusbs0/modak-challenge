@@ -3,10 +3,10 @@ import { Slot } from "expo-router";
 import { useColorScheme } from "react-native";
 import { TamaguiProvider } from "tamagui";
 
-import { tamaguiConfig } from "../tamagui.config";
 import { useConfigureNotificationsHandler } from "@/common/config/notifications";
-import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from "react";
+import { tamaguiConfig } from "../tamagui.config";
 
 const queryClient = new QueryClient();
 

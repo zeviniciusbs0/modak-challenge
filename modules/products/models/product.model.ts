@@ -1,11 +1,11 @@
 import axiosInstance from "@/common/config/axios";
+import type { AxiosInstance } from "axios";
+import type { Product } from "../types/product";
+import type { GetProductCategoriesDto } from "./dtos/get-product-categories.dto";
 import type {
 	GetProductsDto,
 	GetProductsParamsDto,
 } from "./dtos/get-products.dto";
-import type { Product } from "../types/product";
-import type { GetProductCategoriesDto } from "./dtos/get-product-categories.dto";
-import type { AxiosInstance } from "axios";
 
 export class ProductModel {
 	private client: AxiosInstance;

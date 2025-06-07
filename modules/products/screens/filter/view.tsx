@@ -1,8 +1,8 @@
+import { Button } from "@/common/components/button";
 import { Chip } from "@/common/components/chip";
 import { Page } from "@/common/components/page";
 import { H1, XStack, YStack } from "tamagui";
 import type { useFilterViewModel } from "./view-model";
-import { Button } from "@/common/components/button";
 
 export const FilterView = (props: ReturnType<typeof useFilterViewModel>) => {
 	const {

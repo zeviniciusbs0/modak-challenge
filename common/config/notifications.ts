@@ -1,10 +1,10 @@
-import * as Notifications from "expo-notifications";
-import * as Device from "expo-device";
 import Constants from "expo-constants";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
 
-import { Platform } from "react-native";
-import { useEffect, useState } from "react";
 import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import { Platform } from "react-native";
 
 export interface PushNotificationData {
 	screen?: string;

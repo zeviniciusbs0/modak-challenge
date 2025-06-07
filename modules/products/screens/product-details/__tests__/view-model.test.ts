@@ -1,4 +1,4 @@
-import { renderHook, jest } from "@/common/utils/test-utils";
+import { jest, renderHook } from "@/common/utils/test-utils";
 import { useProductDetailsViewModel } from "../view-model";
 
 // Mock expo-router

@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
-import { ProductModel } from "../../models/product.model";
-import { router, useLocalSearchParams } from "expo-router";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { router, useLocalSearchParams } from "expo-router";
+import { useMemo, useState } from "react";
+import { ProductModel } from "../../models/product.model";
 
 const LIMIT = 20;
 
