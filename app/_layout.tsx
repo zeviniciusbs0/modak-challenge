@@ -12,7 +12,14 @@ const queryClient = new QueryClient();
 
 export default function RootLayout() {
 	const colorScheme = useColorScheme();
-	useConfigureNotificationsHandler();
+	const { expoPushToken } = useConfigureNotificationsHandler();
+
+	// Log push token for debugging/testing
+	React.useEffect(() => {
+		if (expoPushToken) {
+			console.log("🔗 Push Token Available:", expoPushToken);
+		}
+	}, [expoPushToken]);
 
 	return (
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>

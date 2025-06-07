@@ -38,6 +38,8 @@ yarn-error.*
 
 # ios
 ios/
+GoogleService-Info.plist
 
 # android
 android/
+google-services.json

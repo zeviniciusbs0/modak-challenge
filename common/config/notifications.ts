@@ -4,6 +4,13 @@ import Constants from "expo-constants";
 
 import { Platform } from "react-native";
 import { useEffect, useState } from "react";
+import { router } from "expo-router";
+
+export interface PushNotificationData {
+	screen?: string;
+	productId?: string;
+	[key: string]: unknown;
+}
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
@@ -11,12 +18,22 @@ Notifications.setNotificationHandler({
 		shouldSetBadge: true,
 		shouldShowBanner: true,
 		shouldShowList: true,
+		shouldShowAlert: true,
 	}),
 });
 
 export const useConfigureNotificationsHandler = () => {
 	const handleRegistrationError = (error: string) => {
 		console.error(error);
+	};
+
+	const handleNotificationNavigation = (data: PushNotificationData) => {
+		// Handle deep linking based on notification data
+		if (data.screen && typeof data.screen === "string") {
+			router.push(data.screen as never);
+		} else if (data.productId) {
+			router.push(`/products/${data.productId}` as never);
+		}
 	};
 
 	async function registerForPushNotificationsAsync() {
@@ -47,7 +64,10 @@ export const useConfigureNotificationsHandler = () => {
 				Constants?.expoConfig?.extra?.eas?.projectId ??
 				Constants?.easConfig?.projectId;
 			if (!projectId) {
-				handleRegistrationError("Project ID not found");
+				console.warn(
+					"No EAS projectId found. Expo push notifications will not be available.",
+				);
+				return;
 			}
 			try {
 				const pushTokenString = (
@@ -55,7 +75,7 @@ export const useConfigureNotificationsHandler = () => {
 						projectId,
 					})
 				).data;
-				console.log(pushTokenString);
+				console.log("📱 Expo Push Token:", pushTokenString);
 				return pushTokenString;
 			} catch (e: unknown) {
 				handleRegistrationError(`${e}`);
@@ -75,17 +95,22 @@ export const useConfigureNotificationsHandler = () => {
 	useEffect(() => {
 		registerForPushNotificationsAsync()
 			.then((token) => setExpoPushToken(token ?? ""))
-			.catch((error: any) => setExpoPushToken(`${error}`));
+			.catch((error: unknown) => setExpoPushToken(`${error}`));
 
 		const notificationListener = Notifications.addNotificationReceivedListener(
 			(notification) => {
+				console.log("📱 Notification received:", notification);
 				setNotification(notification);
 			},
 		);
 
 		const responseListener =
 			Notifications.addNotificationResponseReceivedListener((response) => {
-				console.log(response);
+				console.log("👆 Notification tapped:", response);
+
+				const data: PushNotificationData =
+					response.notification.request.content.data;
+				handleNotificationNavigation(data);
 			});
 
 		return () => {
@@ -93,4 +118,25 @@ export const useConfigureNotificationsHandler = () => {
 			responseListener.remove();
 		};
 	}, []);
+
+	return {
+		expoPushToken,
+		notification,
+	};
+};
+
+// Send local notification (for testing)
+export const sendLocalNotification = async (
+	title: string,
+	body: string,
+	data?: PushNotificationData,
+) => {
+	await Notifications.scheduleNotificationAsync({
+		content: {
+			title,
+			body,
+			data: data || {},
+		},
+		trigger: null, // Send immediately
+	});
 };
