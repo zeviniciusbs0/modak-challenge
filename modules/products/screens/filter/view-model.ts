@@ -49,7 +49,7 @@ export const useFilterViewModel = () => {
 	}, [selectedCategory, sortBy]);
 
 	const handleSubmit = () => {
-		router.navigate({
+		router.replace({
 			pathname: "/products/list",
 			params: {
 				category: selectedCategory?.slug,

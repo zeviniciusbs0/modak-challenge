@@ -1,25 +1,29 @@
 import { useEffect, useState } from "react";
 import { ProductModel } from "../../models/product.model";
-import type { Product } from "../../types/product";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
+import { useQuery } from "@tanstack/react-query";
 
 export const useProductDetailsViewModel = () => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [product, setProduct] = useState<Product | null>(null);
 	const { id } = useLocalSearchParams();
 
-	const getProduct = async () => {
-		setIsLoading(true);
-		const productModel = new ProductModel();
-		const product = await productModel.getProductById(id as string);
-		setIsLoading(false);
-		setProduct(product);
-	};
+	const {
+		data: product,
+		error,
+		isLoading,
+	} = useQuery({
+		queryKey: ["product-details", id],
+		queryFn: async () => {
+			const productModel = new ProductModel();
+			const product = await productModel.getProductById(id as string);
+			return product;
+		},
+	});
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		getProduct();
-	}, []);
+		if (error) {
+			router.replace("/products/list");
+		}
+	}, [error]);
 
 	return { product, isLoading };
 };

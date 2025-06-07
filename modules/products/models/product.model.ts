@@ -5,9 +5,14 @@ import type {
 } from "./dtos/get-products.dto";
 import type { Product } from "../types/product";
 import type { GetProductCategoriesDto } from "./dtos/get-product-categories.dto";
+import type { AxiosInstance } from "axios";
 
 export class ProductModel {
-	private client = axiosInstance;
+	private client: AxiosInstance;
+
+	constructor() {
+		this.client = axiosInstance;
+	}
 
 	async getProducts(params?: GetProductsParamsDto): Promise<GetProductsDto> {
 		const response = await this.client.get<GetProductsDto>("/products", {

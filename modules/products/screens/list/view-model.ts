@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ProductModel } from "../../models/product.model";
 import type { Product } from "../../types/product";
 import { router, useLocalSearchParams } from "expo-router";
+import { useQuery } from "@tanstack/react-query";
 
 export const useListViewModel = () => {
 	const params = useLocalSearchParams<{
@@ -12,29 +13,25 @@ export const useListViewModel = () => {
 	const [category, setCategory] = useState(params.category);
 	const [sortBy, setSortBy] = useState(params.sortBy);
 
-	const [products, setProducts] = useState<Product[]>([]);
+	const { data: products, isLoading } = useQuery({
+		queryKey: ["products-list", category, sortBy],
+		queryFn: async () => {
+			const productModel = new ProductModel();
+			const productsList = category
+				? await productModel.getProductByCategory(category, {
+						sortBy,
+					})
+				: await productModel.getProducts({
+						sortBy,
+					});
 
-	const getProducts = async () => {
-		const productModel = new ProductModel();
-		const productsList = category
-			? await productModel.getProductByCategory(category, {
-					sortBy,
-				})
-			: await productModel.getProducts({
-					sortBy,
-				});
-
-		setProducts(productsList.products);
-	};
+			return productsList.products;
+		},
+	});
 
 	const openFilters = () => {
-		router.push("/products/filter");
+		router.navigate("/products/filter");
 	};
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		getProducts();
-	}, [category, sortBy]);
 
 	const handleRemoveCategory = () => {
 		setCategory(undefined);
@@ -46,6 +43,7 @@ export const useListViewModel = () => {
 
 	return {
 		products,
+		isLoading,
 		openFilters,
 		category,
 		sortBy,

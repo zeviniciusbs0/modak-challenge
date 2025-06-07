@@ -5,6 +5,10 @@ import { TamaguiProvider } from "tamagui";
 
 import { tamaguiConfig } from "../tamagui.config";
 import { useConfigureNotificationsHandler } from "@/common/config/notifications";
+import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
 	const colorScheme = useColorScheme();
@@ -13,7 +17,9 @@ export default function RootLayout() {
 	return (
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		<TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme as any}>
-			<Slot />
+			<QueryClientProvider client={queryClient}>
+				<Slot />
+			</QueryClientProvider>
 		</TamaguiProvider>
 	);
 }
