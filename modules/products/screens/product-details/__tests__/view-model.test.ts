@@ -1,7 +1,6 @@
 import { jest, renderHook } from "@/common/utils/test-utils";
 import { useProductDetailsViewModel } from "../view-model";
 
-// Mock expo-router
 const mockReplace = jest.fn();
 const mockUseLocalSearchParams = jest.fn();
 
@@ -48,12 +47,10 @@ describe("useProductDetailsViewModel", () => {
 		});
 
 		it("should handle different id values", () => {
-			// Test with string id
 			mockUseLocalSearchParams.mockReturnValue({ id: "123" });
 			const { unmount } = renderHook(() => useProductDetailsViewModel());
 			unmount();
 
-			// Test with different id
 			mockUseLocalSearchParams.mockReturnValue({ id: "456" });
 			const { result } = renderHook(() => useProductDetailsViewModel());
 

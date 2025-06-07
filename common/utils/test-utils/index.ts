@@ -1,7 +1,5 @@
-// Re-export everything from React Native Testing Library
 export * from "@testing-library/react-native";
 
-// Re-export common Jest functions
 export { jest } from "@jest/globals";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -13,19 +11,17 @@ import type {
 	RenderHookOptions,
 	RenderOptions,
 } from "@testing-library/react-native";
-// Custom render function with providers
 import React from "react";
 import { TamaguiProvider } from "tamagui";
 import { tamaguiConfig } from "../../../tamagui.config";
 
-// Create QueryClient with test-friendly defaults
 const createTestQueryClient = () =>
 	new QueryClient({
 		defaultOptions: {
 			queries: {
 				retry: false,
 				staleTime: Number.POSITIVE_INFINITY,
-				gcTime: 0, // Immediate garbage collection
+				gcTime: 0,
 			},
 			mutations: {
 				retry: false,
@@ -33,7 +29,6 @@ const createTestQueryClient = () =>
 		},
 	});
 
-// Create a custom render function that includes providers
 const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const queryClient = createTestQueryClient();
 
@@ -54,10 +49,8 @@ const customRenderHook = <Result, Props>(
 	options?: Omit<RenderHookOptions<Props>, "wrapper">,
 ) => originalRenderHook(hook, { wrapper: Wrapper, ...options });
 
-// Re-export everything, overriding render and adding renderHook
 export { customRender as render, customRenderHook as renderHook };
 
-// Test utilities
 export const createMockNavigation = () => ({
 	navigate: jest.fn(),
 	goBack: jest.fn(),
@@ -73,11 +66,9 @@ export const createMockRoute = (params = {}) => ({
 	params,
 });
 
-// Helper to wait for async operations
 export const waitForNextTick = () =>
 	new Promise((resolve) => setTimeout(resolve, 0));
 
-// Mock data generators
 export const createMockProduct = (overrides = {}) => ({
 	id: 1,
 	title: "Test Product",

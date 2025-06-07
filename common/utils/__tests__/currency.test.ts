@@ -24,14 +24,14 @@ describe("CurrencyHandler", () => {
 
 		it("should format decimal numbers correctly", () => {
 			expect(CurrencyHandler.format(99.1)).toBe("$99.10");
-			expect(CurrencyHandler.format(99.123)).toBe("$99.12"); // Should round to 2 decimals
-			expect(CurrencyHandler.format(99.999)).toBe("$100.00"); // Should round up
+			expect(CurrencyHandler.format(99.123)).toBe("$99.12");
+			expect(CurrencyHandler.format(99.999)).toBe("$100.00");
 		});
 
 		it("should handle edge cases", () => {
 			expect(CurrencyHandler.format(0.01)).toBe("$0.01");
-			expect(CurrencyHandler.format(0.001)).toBe("$0.00"); // Should round down
-			expect(CurrencyHandler.format(0.006)).toBe("$0.01"); // Should round up
+			expect(CurrencyHandler.format(0.001)).toBe("$0.00");
+			expect(CurrencyHandler.format(0.006)).toBe("$0.01");
 		});
 
 		it("should format very small positive numbers", () => {

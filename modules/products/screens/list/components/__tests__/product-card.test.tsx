@@ -18,7 +18,6 @@ describe("ProductCard", () => {
 			<ProductCard product={productWithManyReviews} />,
 		);
 
-		// Testa a lógica de cálculo: rating + (reviews.length)
 		expect(getByText("3.8 (15)")).toBeTruthy();
 	});
 
@@ -32,7 +31,6 @@ describe("ProductCard", () => {
 			<ProductCard product={productWithoutReviews} />,
 		);
 
-		// Edge case importante: produtos sem reviews
 		expect(getByText("0 (0)")).toBeTruthy();
 	});
 });

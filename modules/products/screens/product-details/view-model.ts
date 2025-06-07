@@ -16,7 +16,6 @@ export const useProductDetailsViewModel = () => {
 				const productModel = new ProductModel();
 				const product = await productModel.getProductById(id as string);
 				return product;
-				// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 			} catch (e: any) {
 				if (e.response?.status === 404) {
 					throw new Error("Product not found");

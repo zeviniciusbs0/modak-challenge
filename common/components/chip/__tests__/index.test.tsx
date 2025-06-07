@@ -22,7 +22,6 @@ describe("Chip", () => {
 			const chip = getByText("Priority Test");
 			fireEvent.press(chip);
 
-			// Lógica específica da aplicação: onRemove tem prioridade
 			expect(mockRemove).toHaveBeenCalledTimes(1);
 			expect(mockPress).not.toHaveBeenCalled();
 		});

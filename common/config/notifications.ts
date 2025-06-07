@@ -28,7 +28,6 @@ export const useConfigureNotificationsHandler = () => {
 	};
 
 	const handleNotificationNavigation = (data: PushNotificationData) => {
-		// Handle deep linking based on notification data
 		if (data.screen && typeof data.screen === "string") {
 			router.push(data.screen as never);
 		} else if (data.productId) {
@@ -123,20 +122,4 @@ export const useConfigureNotificationsHandler = () => {
 		expoPushToken,
 		notification,
 	};
-};
-
-// Send local notification (for testing)
-export const sendLocalNotification = async (
-	title: string,
-	body: string,
-	data?: PushNotificationData,
-) => {
-	await Notifications.scheduleNotificationAsync({
-		content: {
-			title,
-			body,
-			data: data || {},
-		},
-		trigger: null, // Send immediately
-	});
 };

@@ -27,9 +27,7 @@ module.exports = {
 	resetMocks: true,
 	restoreMocks: true,
 	verbose: true,
-	// Configurações para resolver problemas de operações assíncronas pendentes
 	forceExit: true,
 	detectOpenHandles: true,
-	// Limitar workers para evitar problemas de concorrência
 	maxWorkers: 1,
 };
