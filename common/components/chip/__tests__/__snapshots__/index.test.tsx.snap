@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chip should render the chip correctly 1`] = `
+<View
+  focusVisibleStyle={
+    {
+      "backgroundColor": "transparent",
+      "borderBottomColor": "hsla(146, 38%, 69%, 1)",
+      "borderLeftColor": "hsla(146, 38%, 69%, 1)",
+      "borderRightColor": "hsla(146, 38%, 69%, 1)",
+      "borderTopColor": "hsla(146, 38%, 69%, 1)",
+    }
+  }
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  role="button"
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "transparent",
+      "borderBottomColor": "hsla(146, 38%, 69%, 1)",
+      "borderBottomLeftRadius": 7,
+      "borderBottomRightRadius": 7,
+      "borderBottomWidth": 2,
+      "borderLeftColor": "hsla(146, 38%, 69%, 1)",
+      "borderLeftWidth": 2,
+      "borderRightColor": "hsla(146, 38%, 69%, 1)",
+      "borderRightWidth": 2,
+      "borderStyle": "solid",
+      "borderTopColor": "hsla(146, 38%, 69%, 1)",
+      "borderTopLeftRadius": 7,
+      "borderTopRightRadius": 7,
+      "borderTopWidth": 2,
+      "flexDirection": "row",
+      "flexWrap": "nowrap",
+      "height": 36,
+      "justifyContent": "center",
+      "paddingLeft": 13,
+      "paddingRight": 13,
+    }
+  }
+>
+  <Text
+    lineBreakMode="clip"
+    numberOfLines={1}
+    style={
+      {
+        "color": "hsla(155, 41%, 14%, 1)",
+        "flexGrow": 0,
+        "flexShrink": 1,
+        "fontFamily": "System",
+        "fontSize": 13,
+        "fontWeight": "300",
+        "letterSpacing": 0,
+        "lineHeight": 23,
+        "userSelect": "none",
+      }
+    }
+    suppressHighlighting={true}
+  >
+    Chip Test
+  </Text>
+</View>
+`;
