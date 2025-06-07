@@ -29,6 +29,8 @@ exports[`ProductCard should render the product card correctly 1`] = `
       "borderTopWidth": 1,
       "flexDirection": "column",
       "marginBottom": 7,
+      "marginLeft": 18,
+      "marginRight": 18,
       "marginTop": 7,
       "position": "relative",
       "shadowColor": "rgb(0,0,0)",

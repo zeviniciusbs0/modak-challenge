@@ -1,20 +1,36 @@
 # Modak Technical Challenge
 
-A React Native application built with Expo, featuring product listings, filtering capabilities, and push notifications integration.
+[![Tests](https://img.shields.io/badge/tests-18%20passing-brightgreen)](#testing)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](#tech-stack)
+[![Expo SDK](https://img.shields.io/badge/Expo%20SDK-53-black)](#tech-stack)
 
-## Tech Stack
+A React Native application built with Expo, featuring product listings, infinite scroll, filtering capabilities, push notifications integration, and comprehensive error handling.
+
+## 🎯 Features
+
+- **Product Catalog**: Browse products with infinite scroll pagination
+- **Advanced Filtering**: Filter by category and sort by price/rating
+- **Product Details**: Detailed product information with Error Boundaries
+- **Push Notifications**: FCM V1 integration with deep linking
+- **Error Handling**: Global and route-specific Error Boundaries
+- **Responsive UI**: Beautiful design with Tamagui components
+- **Testing**: Comprehensive test suite with 18 passing tests
+
+## 🚀 Tech Stack
 
 - **Framework**: React Native with Expo SDK 53
-- **Navigation**: Expo Router v5
-- **UI Library**: Tamagui v1.126
-- **State Management**: TanStack React Query v5
-- **Language**: TypeScript
+- **Navigation**: Expo Router v5 with deep linking
+- **UI Library**: Tamagui v1.126 (design system)
+- **State Management**: TanStack React Query v5 (infinite queries)
+- **Language**: TypeScript with strict type checking
 - **Build System**: EAS Build
 - **Push Notifications**: Expo Notifications + Firebase Cloud Messaging (FCM V1)
-- **HTTP Client**: Axios
+- **HTTP Client**: Axios with interceptors
 - **Code Quality**: Biome (ESLint + Prettier alternative)
+- **Testing**: Jest + React Native Testing Library
+- **Architecture**: MVVM pattern with Repository pattern
 
-## Prerequisites
+## 📋 Prerequisites
 
 - Node.js 18+ 
 - npm or yarn
@@ -22,7 +38,7 @@ A React Native application built with Expo, featuring product listings, filterin
 - iOS Simulator (macOS) or Android Studio (for emulators)
 - Physical device for testing push notifications
 
-## Installation
+## 🛠 Installation
 
 1. **Clone the repository**
    ```bash
@@ -42,7 +58,7 @@ A React Native application built with Expo, featuring product listings, filterin
    npm install -g @expo/eas-cli
    ```
 
-## Configuration
+## ⚙️ Configuration
 
 ### Firebase Setup
 
@@ -65,7 +81,7 @@ A React Native application built with Expo, featuring product listings, filterin
    - Generate new private key
    - Save as `credentials.json` in project root
 
-> ⚠️ **SECURITY WARNING**: Never commit Firebase configuration files (`google-services.json`, `GoogleService-Info.plist`, `credentials.json`) to version control. These files contain sensitive API keys and should remain local only. Use `firebase-config.example.json` as a reference for the required structure.
+> ⚠️ **SECURITY WARNING**: Never commit Firebase configuration files (`google-services.json`, `GoogleService-Info.plist`, `credentials.json`) to version control. These files contain sensitive API keys and should remain local only.
 
 ### EAS Configuration
 
@@ -86,16 +102,7 @@ A React Native application built with Expo, featuring product listings, filterin
    - Choose "Set up a new keystore" for Android signing
    - Configure FCM V1 with your service account key
 
-## Environment Variables
-
-Create a `.env` file in the root directory (if needed for additional configurations):
-
-```env
-# Add any environment-specific variables here
-API_BASE_URL=https://dummyjson.com
-```
-
-## Development
+## 🏃‍♂️ Development
 
 ### Running the Application
 
@@ -118,7 +125,7 @@ API_BASE_URL=https://dummyjson.com
    yarn web
    ```
 
-### Push Notifications Testing
+### 🔔 Push Notifications Testing
 
 1. **Get your Expo Push Token** from the console logs when the app starts
 
@@ -149,21 +156,61 @@ API_BASE_URL=https://dummyjson.com
    }
    ```
 
-## Project Structure
+### 🔗 Deep Linking Testing
+
+Test Error Boundaries and navigation with these commands:
+
+```bash
+# Test product details Error Boundary with invalid ID
+npx expo start --scheme modakchallenge --url "/products/999999"
+
+# Test normal product details
+npx expo start --scheme modakchallenge --url "/products/1"
+
+# Test products list with filters
+npx expo start --scheme modakchallenge --url "/products/list?category=smartphones&sortBy=price"
+```
+
+## 🧪 Testing
+
+The project includes a comprehensive test suite with 18 passing tests across 4 test suites:
+
+```bash
+# Run all tests
+yarn test
+
+# Run tests with coverage
+yarn test --coverage
+
+# Run specific test file
+yarn test --no-coverage currency.test.ts
+
+# Update snapshots
+yarn test -u
+```
+
+### Test Coverage Areas
+
+- **Component Testing**: UI components (Button, Chip, ProductCard)
+- **Utility Testing**: Currency formatting, error handling
+- **Hook Testing**: ViewModels and custom hooks
+- **Integration Testing**: API interactions and data flow
+
+## 📁 Project Structure
 
 ```
 ├── app/                    # Expo Router pages
-│   ├── _layout.tsx        # Root layout with providers
+│   ├── _layout.tsx        # Root layout with providers & Error Boundary
 │   ├── index.tsx          # Home redirect
 │   └── products/          # Product-related screens
 ├── common/                # Shared utilities and components
-│   ├── components/        # Reusable UI components
-│   ├── config/           # App configuration
-│   └── utils/            # Utility functions
+│   ├── components/        # Reusable UI components (Page, Button, Chip)
+│   ├── config/           # App configuration (notifications, axios)
+│   └── utils/            # Utility functions (currency, test-utils)
 ├── modules/              # Feature modules
 │   └── products/         # Product module
-│       ├── models/       # Data layer (API calls)
-│       ├── screens/      # Screen components
+│       ├── models/       # Data layer (API calls, Repository pattern)
+│       ├── screens/      # Screen components (MVVM architecture)
 │       └── types/        # TypeScript interfaces
 ├── assets/               # Static assets
 ├── app.config.ts         # Expo configuration
@@ -171,7 +218,7 @@ API_BASE_URL=https://dummyjson.com
 └── tamagui.config.ts    # UI library configuration
 ```
 
-## Available Scripts
+## 📜 Available Scripts
 
 ```bash
 # Development
@@ -182,18 +229,19 @@ yarn web               # Run on web
 
 # Code Quality
 npx biome check        # Lint and format check
-npx biome check --fix  # Auto-fix issues
+npx biome check --write  # Auto-fix issues
+
+# Testing
+yarn test              # Run test suite (18 tests)
+yarn test --coverage   # Run tests with coverage report
 
 # Building
 eas build --platform android  # Build Android APK/AAB
 eas build --platform ios      # Build iOS IPA
 eas build --platform all      # Build for all platforms
-
-# Testing
-yarn test              # Run tests (if configured)
 ```
 
-## Building for Production
+## 🏗 Building for Production
 
 ### Android
 
@@ -219,7 +267,7 @@ yarn test              # Run tests (if configured)
    eas build --platform ios --profile production
    ```
 
-## Deployment
+## 🚀 Deployment
 
 ### Android Play Store
 
@@ -235,18 +283,24 @@ yarn test              # Run tests (if configured)
    ```
 2. **Submit to App Store** from App Store Connect
 
-## API Integration
+## 🌐 API Integration
 
 The app integrates with DummyJSON API for product data:
 
 - **Base URL**: `https://dummyjson.com`
 - **Endpoints**:
-  - `GET /products` - List products
+  - `GET /products` - List products with pagination (`limit`, `skip`)
   - `GET /products/categories` - Get categories
   - `GET /products/category/{category}` - Products by category
   - `GET /products/{id}` - Product details
 
-## Push Notification Features
+### API Features
+
+- **Infinite Scroll**: Automatic pagination with TanStack Query
+- **Filtering**: Category and sort by price/rating
+- **Error Handling**: Graceful error states with retry functionality
+
+## 🔔 Push Notification Features
 
 - **FCM V1 Integration** with service account authentication
 - **Deep linking** to specific screens/products
@@ -254,7 +308,16 @@ The app integrates with DummyJSON API for product data:
 - **Local notification** testing utilities
 - **Automatic token generation** and logging
 
-## Security
+## 🛡️ Error Handling
+
+The app implements comprehensive error handling:
+
+- **Global Error Boundary**: Catches unhandled errors app-wide
+- **Route-specific Error Boundaries**: Custom error UI for specific screens
+- **API Error Handling**: Graceful error states with retry options
+- **React Query Integration**: Automatic error retry and caching
+
+## 🔒 Security
 
 ### ⚠️ Sensitive Files
 
@@ -263,14 +326,12 @@ The following files contain sensitive information and should **NEVER** be commit
 - `google-services.json` - Contains Firebase API keys
 - `GoogleService-Info.plist` - Contains iOS Firebase configuration
 - `credentials.json` - Contains Firebase service account private key
-- `.env` files - May contain environment secrets
 
 ### ✅ Security Best Practices
 
 1. **Use `.gitignore`** - All sensitive files are already in `.gitignore`
 2. **Use example files** - Reference `firebase-config.example.json` for structure
-3. **Environment variables** - Use `.env` files for secrets (never commit them)
-4. **EAS Secrets** - Store production secrets in EAS for builds
+3. **EAS Secrets** - Store production secrets in EAS for builds
 
 ### 🚨 If You Accidentally Committed Secrets
 
@@ -285,7 +346,7 @@ The following files contain sensitive information and should **NEVER** be commit
    - Rotate API keys in Firebase Console
    - Update EAS credentials
 
-## Troubleshooting
+## 🐛 Troubleshooting
 
 ### Common Issues
 
@@ -302,6 +363,10 @@ The following files contain sensitive information and should **NEVER** be commit
    - Clear cache: `npx expo start --clear`
    - Clean install: `rm -rf node_modules && yarn install`
 
+4. **Test failures**
+   - Update snapshots: `yarn test -u`
+   - Clear Jest cache: `yarn test --clearCache`
+
 ### Debug Commands
 
 ```bash
@@ -313,9 +378,12 @@ eas build:list
 
 # Check credentials
 eas credentials --platform android
+
+# Check test status
+yarn test --verbose
 ```
 
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/your-feature`
@@ -323,6 +391,6 @@ eas credentials --platform android
 4. Push to branch: `git push origin feature/your-feature`
 5. Submit a pull request
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
