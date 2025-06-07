@@ -3,7 +3,7 @@ import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Platform } from "react-native";
 
 export interface PushNotificationData {
@@ -85,21 +85,14 @@ export const useConfigureNotificationsHandler = () => {
 			);
 		}
 	}
-	const [expoPushToken, setExpoPushToken] = useState("");
-	const [notification, setNotification] = useState<
-		Notifications.Notification | undefined
-	>(undefined);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		registerForPushNotificationsAsync()
-			.then((token) => setExpoPushToken(token ?? ""))
-			.catch((error: unknown) => setExpoPushToken(`${error}`));
+		registerForPushNotificationsAsync();
 
 		const notificationListener = Notifications.addNotificationReceivedListener(
 			(notification) => {
 				console.log("📱 Notification received:", notification);
-				setNotification(notification);
 			},
 		);
 
@@ -117,9 +110,4 @@ export const useConfigureNotificationsHandler = () => {
 			responseListener.remove();
 		};
 	}, []);
-
-	return {
-		expoPushToken,
-		notification,
-	};
 };

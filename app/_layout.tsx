@@ -16,13 +16,7 @@ export const unstable_settings = {
 
 export default function RootLayout() {
 	const colorScheme = useColorScheme();
-	const { expoPushToken } = useConfigureNotificationsHandler();
-
-	React.useEffect(() => {
-		if (expoPushToken) {
-			console.log("🔗 Push Token Available:", expoPushToken);
-		}
-	}, [expoPushToken]);
+	useConfigureNotificationsHandler();
 
 	return (
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
