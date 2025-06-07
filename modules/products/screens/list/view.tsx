@@ -35,7 +35,7 @@ export const ListView = (props: ReturnType<typeof useListViewModel>) => {
 					)}
 				</XStack>
 				{isLoading ? (
-					<YStack justifyContent="center" alignItems="center" flex={1}>
+					<YStack justify="center" items="center" flex={1}>
 						<Spinner size="large" />
 					</YStack>
 				) : (

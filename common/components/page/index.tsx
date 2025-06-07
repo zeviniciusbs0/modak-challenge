@@ -1,27 +1,11 @@
 import Constants from "expo-constants";
 import { router } from "expo-router";
-import type React from "react";
-import { type PropsWithChildren, useEffect, useMemo } from "react";
-import { BackHandler, KeyboardAvoidingView, Platform } from "react-native";
+import { useEffect, useMemo } from "react";
+import { BackHandler } from "react-native";
 import { PageContext, usePageContext } from "./context";
-import {
-	Button,
-	H1,
-	ScrollView,
-	Spinner,
-	View,
-	type ViewProps,
-	type ScrollViewProps,
-	YStack,
-	XStack,
-} from "tamagui";
+import { Button, H1, ScrollView, Spinner, View, YStack, XStack } from "tamagui";
 import { ChevronLeft } from "@tamagui/lucide-icons";
-
-type HeaderProps = PropsWithChildren<
-	ViewProps & {
-		RightSlot?: React.ReactNode;
-	}
->;
+import type { HeaderProps, BodyProps, FooterProps, PageProps } from "./types";
 
 export function Header({ children, RightSlot, ...styleProps }: HeaderProps) {
 	const handleGoBack = usePageContext((state) => state.handleGoBack);
@@ -34,8 +18,8 @@ export function Header({ children, RightSlot, ...styleProps }: HeaderProps) {
 			bg="$color02"
 			{...styleProps}
 		>
-			<XStack alignItems="center" gap="$4">
-				<XStack flex={1} alignItems="center">
+			<XStack items="center" gap="$4">
+				<XStack flex={1} items="center">
 					{handleGoBack ? (
 						<Button
 							chromeless
@@ -55,19 +39,13 @@ export function Header({ children, RightSlot, ...styleProps }: HeaderProps) {
 	);
 }
 
-type BodyProps = PropsWithChildren<
-	ScrollViewProps & {
-		scroll?: boolean;
-	}
->;
-
 export function Body({ children, scroll, ...styleProps }: BodyProps) {
 	const isLoading = usePageContext((state) => state.isLoading);
 	const Container = useMemo(() => (scroll ? ScrollView : View), [scroll]);
 
 	if (isLoading) {
 		return (
-			<YStack grow={1} alignItems="center" justifyContent="center">
+			<YStack grow={1} items="center" justify="center">
 				<Spinner size="large" />
 			</YStack>
 		);
@@ -80,7 +58,6 @@ export function Body({ children, scroll, ...styleProps }: BodyProps) {
 	);
 }
 
-type FooterProps = PropsWithChildren<ViewProps>;
 export function Footer({ children, ...styleProps }: FooterProps) {
 	return (
 		<View pb="$6" px="$6" bg="$background" {...styleProps}>
@@ -89,10 +66,6 @@ export function Footer({ children, ...styleProps }: FooterProps) {
 	);
 }
 
-type PageProps = PropsWithChildren<{
-	onGoBack?: () => void;
-	isLoading?: boolean;
-}>;
 function Page({ children, onGoBack, isLoading }: PageProps) {
 	const canGoBack = router.canGoBack();
 

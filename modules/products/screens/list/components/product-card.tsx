@@ -27,7 +27,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 				<Paragraph color="$accent2" numberOfLines={2}>
 					{product.title}
 				</Paragraph>
-				<XStack alignItems="center" gap="$1" mt="$1">
+				<XStack items="center" gap="$1" mt="$1">
 					<StarFull size="$1" color="$yellow10" />
 					<Paragraph>
 						{product.rating} ({product.reviews.length})

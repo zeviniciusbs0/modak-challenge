@@ -1,12 +1,6 @@
 import { X } from "@tamagui/lucide-icons";
 import { Button } from "tamagui";
-
-type ChipProps = {
-	children: React.ReactNode;
-	onPress?: () => void;
-	active?: boolean;
-	onRemove?: () => void;
-};
+import type { ChipProps } from "./types";
 
 export const Chip = ({ children, onPress, active, onRemove }: ChipProps) => {
 	return (
