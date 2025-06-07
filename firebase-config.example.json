@@ -1,0 +1,44 @@
+{
+  "google-services.json": {
+    "note": "Place your google-services.json file in the project root",
+    "structure": {
+      "project_info": {
+        "project_number": "YOUR_PROJECT_NUMBER",
+        "project_id": "YOUR_PROJECT_ID",
+        "storage_bucket": "YOUR_PROJECT_ID.appspot.com"
+      },
+      "client": [
+        {
+          "client_info": {
+            "mobilesdk_app_id": "YOUR_MOBILE_SDK_APP_ID",
+            "android_client_info": {
+              "package_name": "com.modak.technicalchallenge"
+            }
+          },
+          "oauth_client": [],
+          "api_key": [
+            {
+              "current_key": "YOUR_API_KEY"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "credentials.json": {
+    "note": "Place your Firebase service account key as credentials.json in the project root",
+    "structure": {
+      "type": "service_account",
+      "project_id": "YOUR_PROJECT_ID",
+      "private_key_id": "YOUR_PRIVATE_KEY_ID",
+      "private_key": "-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY\n-----END PRIVATE KEY-----\n",
+      "client_email": "firebase-adminsdk-xxxxx@YOUR_PROJECT_ID.iam.gserviceaccount.com",
+      "client_id": "YOUR_CLIENT_ID",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://oauth2.googleapis.com/token"
+    }
+  },
+  "GoogleService-Info.plist": {
+    "note": "Place your GoogleService-Info.plist file in the project root for iOS"
+  }
+} 
